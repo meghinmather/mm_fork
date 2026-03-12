@@ -57,3 +57,12 @@ Participants must bring their own laptop. Prior to the start of the workshop ple
 | 3:00p - 4:30p | Transforming data: stringr, regex |
 
 #### Friday, March 20
+| Time | Topic |
+| ----------------------- | -------------------- |
+| 9:30a - 10:50a | Transforming data: timestamps - lubridate |
+| 10:50a - 11:00a | *Break* |
+| 11:00a - 12:30p | Intro to mapping |
+| 12:30p - 1:30p | *Lunch* |
+| 1:30p - 2:50p | Special topic: TBD |
+| 2:50p - 3:00p | *Break* |
+| 3:00p - 4:30p | Special topic: TBD |
