@@ -17,3 +17,26 @@ typeof(8.5)
 ```{r}
 "this is a text string"
 ```
+
+
+```{r}
+typeof("strings")
+```
+```{r}
+a <- c(1, 2, 3)
+a
+
+c(1, 2, 3)
+c("a", "b", "c")
+c(TRUE, FALSE)
+c(1, "two", 3)
+```
+```{r}
+#| label: setup
+source("training_source.R")
+```
+```{r}
+csv_path <- "../data/raw/presurvey_20260317.csv"
+survey_raw <- rio::import(csv_path)
+```
+
