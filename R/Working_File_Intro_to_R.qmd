@@ -1,0 +1,19 @@
+---
+title: "R Workshop"
+author: "Meghin Mather"
+date: 2026-03-18
+format: html
+editor: visual
+---
+
+## 
+
+```{r}
+3
+4
+typeof(8.5)
+```
+
+```{r}
+"this is a text string"
+```
