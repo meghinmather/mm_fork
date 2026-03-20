@@ -93,12 +93,16 @@ long_survey <- survey2 |>
   pivot_wider(names_from = num_text_var, values_from = numeric_text, names_repair = "minimal")
 
 ```
+
 ```{r}
 long_survey <- survey2 |> 
   select(distance, commute_time) |> 
-  pivot_longer(cols = c(distance, commute_time), names_to = "num_text_var", values_to = "numeric_text") |> 
-  mutate(numeric_text = str_to_lower(numeric_text),
-           .rid = row_number())
+  mutate(rid = row_number()) |> 
+  pivot_longer(cols = c(distance, commute_time), 
+               names_to = "num_text_var", 
+               values_to = "numeric_text") |> 
+  mutate(numeric_text = str_to_lower(numeric_text)
+          )
 
 wide_survey <- long_survey |> 
   pivot_wider(id_cols = .rid,
@@ -107,4 +111,36 @@ wide_survey <- long_survey |>
     names_repair = "minimal") |> 
   select(-.rid)
 ```
+
+```{r}
+library(summarytools)
+library(textclean)
+```
+
+```{r}
+num_dict_words <- paste(textclean::replace_number(seq_len(100)), collapse = "|")
+
+text_num_tbl <- tibble(num = seq_len(100)) |>
+  mutate(
+    word = textclean::replace_number(num),
+    word_num = as.character(num)
+  ) |> 
+  select(word, word_num)
+
+long_survey <- survey2 |> 
+  select(distance, commute_time) |> 
+  mutate(rid = row_number()) |> 
+  pivot_longer(cols = c(distance, commute_time), 
+               names_to = "num_text_var", 
+               values_to = "numeric_text") |> 
+  mutate(numeric_text = str_to_lower(numeric_text)) |> 
+  filter(nchar(numeric_text)>2) |> 
+  mutate(num_words = str_extract_all(numeric_text, num_dict_words, simplify = T),
+         num_words = case_when(nchar(num_words[,1])<2 ~ NA_character_,
+                               nchar(num_words[,2])>2 ~
+                                 paste(num_words[,1], num_words[,2], sep = "-"),
+                                TRUE ~ num_words[,1])
+                          )
+```
+
 
