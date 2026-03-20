@@ -85,4 +85,26 @@ survey3 <- survey2 |>
 
 head(survey3)
 ```
+```{r}
+long_survey <- survey2 |> 
+  select(distance, commute_time) |> 
+  pivot_longer(cols = c(distance, commute_time), names_to = "num_text_var", values_to = "numeric_text") |> 
+  mutate(numeric_text = str_to_lower(numeric_text)) |> 
+  pivot_wider(names_from = num_text_var, values_from = numeric_text, names_repair = "minimal")
+
+```
+```{r}
+long_survey <- survey2 |> 
+  select(distance, commute_time) |> 
+  pivot_longer(cols = c(distance, commute_time), names_to = "num_text_var", values_to = "numeric_text") |> 
+  mutate(numeric_text = str_to_lower(numeric_text),
+           .rid = row_number())
+
+wide_survey <- long_survey |> 
+  pivot_wider(id_cols = .rid,
+    names_from = num_text_var,
+    values_from = numeric_text,
+    names_repair = "minimal") |> 
+  select(-.rid)
+```
 
